@@ -20,13 +20,13 @@ if (
 }
 console.log(Endpoint)
 
-export async function getNotes(tokenId: string): Promise<Notes[]> {
+export async function getNotes(idToken: string): Promise<Notes[]> {
   console.log('Fetching notes')
   if (
     process.env.IS_APP_OFFLINE == 'false' ||
     process.env.IS_APP_OFFLINE == undefined
   ) {
-    JWTtoken = tokenId
+    JWTtoken = idToken
   } else {
     JWTtoken = '123'
   }
@@ -41,14 +41,14 @@ export async function getNotes(tokenId: string): Promise<Notes[]> {
 }
 
 export async function createNotes(
-  tokenId: string,
+  idToken: string,
   newNotes: CreateNotesRequest
 ): Promise<Notes> {
   if (
     process.env.IS_APP_OFFLINE == 'false' ||
     process.env.IS_APP_OFFLINE == undefined
   ) {
-    JWTtoken = tokenId
+    JWTtoken = idToken
   } else {
     JWTtoken = '123'
   }
@@ -68,7 +68,7 @@ export async function createNotes(
 }
 
 export async function updateNotes(
-  tokenId: string,
+  idToken: string,
   notesId: string,
   updatedNotes: UpdateNotesRequest
 ): Promise<void> {
@@ -76,7 +76,7 @@ export async function updateNotes(
     process.env.IS_APP_OFFLINE == 'false' ||
     process.env.IS_APP_OFFLINE == undefined
   ) {
-    JWTtoken = tokenId
+    JWTtoken = idToken
   } else {
     console.log('Offline')
     JWTtoken = '123'
@@ -94,14 +94,14 @@ export async function updateNotes(
 }
 
 export async function deleteNotes(
-  tokenId: string,
+  idToken: string,
   notesId: string
 ): Promise<void> {
   if (
     process.env.IS_APP_OFFLINE == 'false' ||
     process.env.IS_APP_OFFLINE == undefined
   ) {
-    JWTtoken = tokenId
+    JWTtoken = idToken
   } else {
     console.log('Offline')
     JWTtoken = '123'
@@ -115,14 +115,14 @@ export async function deleteNotes(
 }
 
 export async function getUploadUrl(
-  tokenId: string,
+  idToken: string,
   notesId: string
 ): Promise<string> {
   if (
     process.env.IS_APP_OFFLINE == 'false' ||
     process.env.IS_APP_OFFLINE == undefined
   ) {
-    JWTtoken = tokenId
+    JWTtoken = idToken
   } else {
     JWTtoken = '123'
   }

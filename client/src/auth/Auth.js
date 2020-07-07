@@ -3,7 +3,7 @@ import { authConfig } from '../config';
 
 export default class Auth {
   accessToken;
-  tokenId;
+  idToken;
   expiresAt;
 
   auth0 = new auth0.WebAuth({
@@ -32,9 +32,9 @@ export default class Auth {
 
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.tokenId) {
+      if (authResult && authResult.accessToken && authResult.idToken) {
         console.log('Access token: ', authResult.accessToken)
-        console.log('id token: ', authResult.tokenId)
+        console.log('id token: ', authResult.idToken)
         this.setSession(authResult);
       } else if (err) {
         this.history.replace('/');
@@ -49,7 +49,7 @@ export default class Auth {
   }
 
   getIdToken() {
-    return this.tokenId;
+    return this.idToken;
   }
 
   setSession(authResult) {
@@ -57,7 +57,7 @@ export default class Auth {
 
     let expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
     this.accessToken = authResult.accessToken;
-    this.tokenId = authResult.tokenId;
+    this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
 
     this.history.replace('/');
@@ -65,7 +65,7 @@ export default class Auth {
 
   renewSession() {
     this.auth0.checkSession({}, (err, authResult) => {
-       if (authResult && authResult.accessToken && authResult.tokenId) {
+       if (authResult && authResult.accessToken && authResult.idToken) {
          this.setSession(authResult);
        } else if (err) {
          this.logout();
@@ -77,7 +77,7 @@ export default class Auth {
 
   logout() {
     this.accessToken = null;
-    this.tokenId = null;
+    this.idToken = null;
     this.expiresAt = 0;
 
     localStorage.removeItem('isLoggedIn');
